@@ -2,13 +2,14 @@
 title: "'Recency bias' in an induction head"
 date: 2023-10-04
 weight: 1
+summary: The induction head in a 2-layer attention-only transformer pays attention to the most recent 3-4 tokens more than earlier in the sequence, displaying a kind of 'recency bias'.
 ---
 
-**The induction head in a 2-layer attention-only transformer model has a slight recency bias towards the previous ~3-4 tokens compared to earlier in the sequence, i.e. it has some intrinsic notion of positional embeddings that it pays attention to, in addition to tokens that followed the current token earlier in the context.**
+**The induction head in a 2-layer attention-only transformer model has a slight recency bias towards the previous ~3-4 tokens compared to earlier in the sequence. It has some notion of positional embeddings that it pays attention to, in addition to tokens that followed the current token earlier in the context.**
 
 ---
 
-Induction heads allow models to look at the sequence ... \[A][B] .... [A] &rarr; ? and increase the probablity of [B], or a token similar to [B], to appear next ([e.g. Olsson et al., Anthropic](https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html)).
+Induction heads allow models to look at the sequence ... \[A][B] .... [A] and increase the probablity of [B], or a token similar to [B], to appear next ([e.g. Olsson et al., Anthropic](https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html)).
 
 A natural follow-up question to the behaviour of induction heads is 'what happens if [A] has already appeared twice in the context, but followed by a different token each time?' For example, would a sequence   ... \[A][B] ...\[A][C] ... [A] &rarr; ? predict [B] or [C] as the next token, or some probability split between [B] and [C]? Does the answer on the positions of  \[A][B] or  \[A][C] within the context?
 

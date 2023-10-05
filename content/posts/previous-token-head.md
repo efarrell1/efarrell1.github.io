@@ -6,7 +6,7 @@ weight: 1
 
 
 
-The previous token head 
+The two-layer attention-only transformer model from `transformer_lens` contains a previous token head at L0H3
 
 {{< load-plotly >}}
 {{< plotly json="/attention.json" height="400px" >}}
