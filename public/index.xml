@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Research Notes</title>
+    <link>https://efarrell1.github.io/</link>
+    <description>Recent content on Research Notes</description>
+    <image>
+      <title>Research Notes</title>
+      <url>https://efarrell1.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://efarrell1.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 04 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://efarrell1.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>&#39;Recency bias&#39; in an induction head</title>
+      <link>https://efarrell1.github.io/posts/recency-bias-induction-head/</link>
+      <pubDate>Wed, 04 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://efarrell1.github.io/posts/recency-bias-induction-head/</guid>
+      <description>The induction head in a 2-layer attention-only transformer model has a slight recency bias towards the previous ~3-4 tokens compared to earlier in the sequence, i.e. it has some intrinsic notion of positional embeddings that it pays attention to, in addition to tokens that followed the current token earlier in the context.
+Induction heads allow models to look at the sequence &amp;hellip; [A][B] &amp;hellip;. [A] → ? and increase the probablity of [B], or a token similar to [B], to appear next (e.</description>
+    </item>
+    
+    <item>
+      <title>Extensions of induction head behaviour 2</title>
+      <link>https://efarrell1.github.io/posts/generalised-induction/</link>
+      <pubDate>Tue, 03 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://efarrell1.github.io/posts/generalised-induction/</guid>
+      <description>There are several possible extensions of induction head behaviour to consider.
+Induction heads allow models to look at the sequence &amp;hellip; [A][B] &amp;hellip;. [A] → ? and increase the probablity of [B] or a token similar to [B] to appear next.
+correctly predict [B] when followed by [A] if the sequence [A][B] has occurred in the context before. One way to consider if/how this behaviour generalises is to consider sequences of length 3 instead of 2.</description>
+    </item>
+    
+    <item>
+      <title>The previous token head in toy attention models </title>
+      <link>https://efarrell1.github.io/posts/previous-token-head/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://efarrell1.github.io/posts/previous-token-head/</guid>
+      <description>The previous token head</description>
+    </item>
+    
+    <item>
+      <title>Positional Embeddings in a 2-layer attention-only transformer model</title>
+      <link>https://efarrell1.github.io/posts/pos-embeddings-2layer/</link>
+      <pubDate>Sun, 01 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://efarrell1.github.io/posts/pos-embeddings-2layer/</guid>
+      <description>The position embeddings in a 2-layer attention-only transformer model arrange themselves into a helical structure. This presumably allows the model to generate QK matrices to move a few positions in relative terms with a similar transformation for all positions. The positional embeddings at positions 0 and 1023 have special properties.
+Position is clearly important to how attention works, so I wanted to do a series of tests on the 2-layer attention-only transformer model from TransformerLens to help myself understand exactly how the attention heads deal with position and perhaps find some interesting direction to pursue.</description>
+    </item>
+    
+    
+  </channel>
+</rss>

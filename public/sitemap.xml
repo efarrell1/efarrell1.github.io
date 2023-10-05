@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://efarrell1.github.io/posts/recency-bias-induction-head/</loc>
+    <lastmod>2023-10-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://efarrell1.github.io/posts/generalised-induction/</loc>
+    <lastmod>2023-10-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://efarrell1.github.io/posts/previous-token-head/</loc>
+    <lastmod>2023-10-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://efarrell1.github.io/posts/pos-embeddings-2layer/</loc>
+    <lastmod>2023-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://efarrell1.github.io/posts/</loc>
+    <lastmod>2023-10-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://efarrell1.github.io/</loc>
+    <lastmod>2023-10-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://efarrell1.github.io/archives/</loc>
+  </url><url>
+    <loc>https://efarrell1.github.io/categories/</loc>
+  </url><url>
+    <loc>https://efarrell1.github.io/tags/</loc>
+  </url>
+</urlset>
