@@ -6,17 +6,24 @@
 .post-title {
     margin-bottom: 2px;
     font-size: 40px;
+    font-family: Palatino, Times, serif;
 }
 
 .post-description {
     margin-top: 10px;
     margin-bottom: 5px;
+    font-family: Palatino, Times, serif;
+}
+
+.post-meta {
+    font-size: 16px;
+    font-family: Palatino, Times, serif;
 }
 
 .post-meta,
 .breadcrumbs {
     color: var(--secondary);
-    font-size: 14px;
+    font-size: 15.5px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -26,6 +33,7 @@
     list-style: none;
     margin: auto 3px;
     box-shadow: 0 1px 0 var(--secondary);
+    font-family: Palatino, Times, serif;
 }
 
 .breadcrumbs a {
@@ -34,6 +42,7 @@
 
 .post-content {
     color: var(--content);
+    font-family: Palatino, Times, serif;
 }
 
 .post-content h3,
@@ -55,6 +64,7 @@
 
 .post-content h3 {
     font-size: 24px;
+    font-family: Palatino, Times, serif;
 }
 
 .post-content h4 {
@@ -67,6 +77,11 @@
 
 .post-content h6 {
     font-size: 12px;
+}
+
+.post-content p {
+    font-size: 17px;
+    font-family: Palatino, Times, serif;
 }
 
 .post-content a,
