@@ -1,5 +1,5 @@
 baseURL: "https://efarrell1.github.io"
-title: Research Notes
+title: Eoin Farrell
 paginate: 5
 theme: PaperMod
 
@@ -17,7 +17,7 @@ minify:
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Home
-  description: "Research Notes"
+  description: "Notes on Transformers"
   # keywords: [Blog, Portfolio, PaperMod]
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
@@ -51,7 +51,7 @@ params:
     safari_pinned_tab: "<link / abs url>"
 
   label:
-    text: "Research Notes"
+    text: "Home"
     icon: /apple-touch-icon.png
     iconHeight: 25
 
@@ -72,10 +72,10 @@ params:
       - name: Tags
         url: tags
 
-  # home-info mode
-  # homeInfoParams:
-  #   Title: "Research Notes"
-  #   # Content: Welcome to my blog
+  # home-info mode:
+  homeInfoParams:
+    Title: "Notes on Transformers"
+    Content: I have posted some notes on some simple experiments with toy transformer models that I have performed. Transformative AI may present substantial risk, especially if we don't understand how the models operate. I'm interested in working towards an understanding of the inner workings of such models.
 
   # socialIcons:
   #   - name: twitter
