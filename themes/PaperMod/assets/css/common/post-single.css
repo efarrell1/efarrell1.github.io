@@ -112,6 +112,8 @@
 .post-content ol,
 .post-content ul {
     padding-inline-start: 20px;
+    font-size: 17px;
+    font-family: Palatino, Times, serif;
 }
 
 .post-content li {

@@ -77,7 +77,10 @@ params:
     Title: "Research Notes on Toy Transformers"
     Content: Transformative AI may present substantial risk, especially if we don't understand how the models operate.
              I'm interested in working towards a better general understanding of such models.
-             In this blog, I post notes on simple experiments that I have performed with toy transformer models. 
+             In this blog, I post notes on simple experiments that I have performed with toy transformer models.
+
+             Thanks to the [TransformerLens](https://github.com/neelnanda-io/TransformerLens) package 
+             created by Neel Nanda and [these excellent tutorials by Callum McDougall](https://arena-ch1-transformers.streamlit.app/).
 
   # socialIcons:
   #   - name: twitter
