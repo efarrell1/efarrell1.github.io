@@ -1,17 +1,19 @@
 ---
 title: "'Recency bias' in an induction head"
-date: 2023-10-04
+date: 2023-10-06
 weight: 1
-summary: The induction head in a 2-layer attention-only transformer pays attention to the most recent 3-4 tokens more than earlier in the sequence, displaying a kind of 'recency bias'.
+summary: The induction head in a 2-layer attention-only transformer pays slightly more attention to tokens later in the context compared to earlier.
 ---
 
-**The induction head in a 2-layer attention-only transformer model has a slight recency bias towards the previous ~3-4 tokens compared to earlier in the sequence. It has some notion of positional embeddings that it pays attention to, in addition to tokens that followed the current token earlier in the context.**
+**The induction head in a 2-layer attention-only transformer model has a slight bias towards tokens later in the context compared to earlier. Interestingly, its notion of position appears to not depend on positional embeddings, or any specific output from an attention head in the previous layer.**
 
 ---
 
 Induction heads allow models to look at the sequence ... \[A][B] .... [A] and increase the probablity of [B], or a token similar to [B], to appear next ([e.g. Olsson et al., Anthropic](https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html)).
 
-A natural follow-up question to the behaviour of induction heads is 'what happens if [A] has already appeared twice in the context, but followed by a different token each time?' For example, would a sequence   ... \[A][B] ...\[A][C] ... [A] &rarr; ? predict [B] or [C] as the next token, or some probability split between [B] and [C]? Does the answer on the positions of  \[A][B] or  \[A][C] within the context?
+One natural follow-up question to the behaviour of induction heads is 'what happens if [A] has already appeared twice in the context, but followed by a different token each time?' For example, would a sequence   ... \[A][B] ...\[A][C] ... [A] &rarr; ? predict [B] or [C] as the next token, or some probability split between [B] and [C]? Does the answer on the positions of  \[A][B] or  \[A][C] within the context?
+
+### Simple Tests
 
  To do some tests in the direction of answering these questions, I put random sequences of the following structure through a 2-layer attention-only transformer model from the `transformer_lens` library:
 
@@ -39,19 +41,19 @@ R indicates a random token (every R is different), and each [A] token is the sam
 
 
 
-Figure 1 shows the probability of [B] or [C] occuring next as a function of the position of the second [A] token. The probabilities of [B] and [C] are roughly equivalent when they are both far away from the current token (positions 4 - 7). When the second [A] token is within 4 tokens of the current token (positions 8 and later), the probability of [C] appearing next increases significantly, while the probability of [B] appearing next remains approximately the same.
+Figure 1 shows the probability of [B] or [C] occuring next as a function of the position of the second [A] token, holding the position of the first [A] token constant. The probabilities of [B] and [C] are roughly equivalent when they are both far away from the current token (positions 4 - 7). When the second [A] token is within 4 tokens of the current token (positions 8 and later), the probability of [C] appearing next increases significantly, while the probability of [B] appearing next remains approximately the same.
 
 
 
 ![Induction head example](/induction-head-abac-example.png)
 
-{{< center >}} *Figure 2: Attention Patterns in layer 1 for the final row of the table above.* {{< /center >}}       <br>
+{{< center >}} *Figure 2: Attention Patterns in Layer 1 for the final row of the table above.* {{< /center >}}       <br>
 
-Figure 2 above shows the layer 1 attention patterns for the final row of the table when the second [A] token is at position 10. As you can see, L1H6 is the induction head. The final [A] token attends slightly more strongly to the [C] token than the [B] token. This is consistent with the output in Figure 1 above where [C] has a higher probability than [B] when the second [A] token is at position 10. 
+Figure 2 shows the Layer 1 attention patterns for the final row of the table when the second [A] token is at position 10. L1H6 is the induction head. The final [A] token attends slightly more strongly to the [C] token than the [B] token. This is consistent with the output in Figure 1 above where [C] has a higher probability than [B] when the second [A] token is at position 10. 
 
 
 
-### Explanation for dependence
+### Positional dependence of attention 
 
 We can extend the information in Figure 2 by plotting the attention patterns in the induction head for the final position in the sequence as a function of the position of the second [A] token -- Figure 3 below. 
 
@@ -63,23 +65,43 @@ We can extend the information in Figure 2 by plotting the attention patterns in 
 
 We can see clearly that the third [A] attends to [B] for all positions of the 2nd [A] token. This makes sense. It also attends to the position of [C] (one ahead of the position fo the 2nd [A] indicated in the caption). Interestingly, it has a stronger attention to [C] for positions closer to the third [A] token. This increased attention translates to a higher probability for the [C] token.
 
-### Positional Embeddings Only
+### Intrinsic positional dependence
 
-Figure 3 hints at an intrinsic positional dependence of the induction head attention patterns. One way to test this is to put only input the positional embeddings and completely remove the token embeddings. If we do this, we get the following:
+Figure 3 hints at an intrinsic positional dependence of the induction head attention patterns. One way to test this is to input random sequences of tokens and average the attention patterns produced in the induction head. This produces the following:
+
+{{< plotly json="/random_attention_pattern_ind_head_7.json" height="500px" >}}
+
+{{< center >}} *Figure 4: Attention Patterns in the induction head (H6) for a sequence of 7 random tokens including a \<BOS> token a position 0.* {{< /center >}}  <br>
+
+The induction head tends to pay more attention to recent tokens and less attention to earlier tokens. This seems to satisfactorily explain the result in Figure 1.
+
+Perhaps somewhat surprisingly, this recency bias seems to extend to much longer gaps in position. Figure 5 shows the same plot as Figure 4, but for 48 tokens instead of 7. Although it's a bit noisy, the general trend still exists.
+
+{{< plotly json="/random_attention_pattern_ind_head_48.json" height="500px" >}}
+
+{{< center >}} *Figure 5: Attention Patterns in the induction head (H6) for a sequence of 48 random tokens including a \<BOS> token a position 0.* {{< /center >}}  <br>
 
 
 
-![Induction head positional depedence](/induction-head-pos-dependence.png)
-
-{{< center >}} *Figure 4: Attention Patterns in Layer 1, including the induction head (H6), for when only the positional embeddings are used, i.e. without the token embeddings meaning the input string is irrelevant.* {{< /center >}} 
-
-The induction head tends to (noisily) pay more attention to recent tokens and less attention to earlier tokens. This explains the result in Figure 1. I think it makes sense that what happened more recently in the context is somewhat more likely to be more relevant to future sentences. Larger models likely have a more sophisticated version of this. The recency bias appears to not matter for the first 5 tokens. I imagine recency is not so important when your entire context is only 5 or 6 tokens long.
-
-One could investigate this behaviour in larger models to see if different induction heads behave differently.
 
 
+### Cause of the intrinsic positional dependence
+
+One might imagine that the positional dependence exhibited in Figure 5 is achieved using the positional embeddings or some information written by a head in layer 0 based on the positional embeddings. However, this is not the case. The positional embeddings can be removed from the model entirely and, with random sequences of tokens, the same trend of increasing attention score can still be obtained.
+
+{{< plotly json="/all_heads_ablated_except_l0h2.json" height="500px" >}}
+
+{{< center >}} *Figure 6: Attention Patterns in the induction head (H6) for a sequence of 48 random tokens with only token embeddings included and all heads in layer 0 ablated except head 1.* {{< /center >}}  <br>
+
+It's even possible to completely ablate almost any 7 of the 8 attention heads in layer 0 by setting head outputs equal to 0 and you still achieve the same trend. For instance, Figure 6 shows the attention pattern obtained when running the model with random tokens, only token embeddings and with only L0H1 activated in Layer 0. While not as smooth as Figure 5, it still exhibits the same upward trend.
+
+So, what causes this strange positional dependence? It turns out (I think!) that this kind of positional dependence is a simple result of the fact that the magnitude of the average of different (i.e. not highly correlated) vectors depends on the number of vectors. For instance, at position 2 in the sequence the output from most of the heads in layer 0 for a sequence of random tokens will be an average of two random value vectors computed from the random tokens. Likewise at position 50, the output will also be an average of the value vectors of the tokens. However, because the value vectors are first multiplied by 1/50 and then added, the z-vector at position 50 will have a smaller magnitude than the z-vector at position 2 that results from multiplying the value vectors by only 1/2 and then adding. This behaviour is true for 7 of the 8 attention heads in Layer 0, but much weaker in L0H7 because it strongly self-attends and so you get less diminishing of the magnitude due to multiplication by a smaller factor. This might all seem obvious, but wasn't at all obvious to me the first time realising it, so I thought I'd note it here.
 
 
+
+### Is the positional dependence intentional?
+
+One may wonder if the positional depdendence is really intentional or helpful to the model. It certainly appears to be intrinsic to the architecture of the transformer model, which would suggest it's not intentional. On the other hand, if the attention head really wanted to use position, it could certainly make use of the positional information written by L0H4 (the actual positional embeddings appear to be deleted by Layer 0 - I'll discuss this in a other post). In the end, while it exists, it's not clear how much this positional dependence affects more complex sequences of tokens.
 
 
 
