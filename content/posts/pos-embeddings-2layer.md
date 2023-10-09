@@ -2,6 +2,7 @@
 title: "Positional Embeddings in a 2-layer attention-only transformer model"
 date: 2023-10-01
 weight: 1
+summary: Some small visualisations and discussion of the positional embeddings
 ---
 
 **The position embeddings in a 2-layer attention-only transformer model arrange themselves into a helical structure. This presumably allows the model to generate QK matrices to move a few positions in relative terms with a similar transformation for all positions. The positional embeddings at positions 0 and 1023 have special properties.**
@@ -46,7 +47,7 @@ The dot product between a given position and the other nearby positions initiall
 
 ### 
 
-The positional embeddings look like a helix. This makes sense; it allows the model to move around in relative positions somewhat easily. The value at (~0, ~0) is at position 1023 - the last position in the context (max length 1024). It never needs to attend to a future token so perhaps it doesn't matter what its embedding is in the same way as other tokens? This also suggests that it's the key being rotated forward, rather than the query being rotated back? Not sure if that makes sense.
+The positional embeddings look like a helix [(this has been found by Adam Yedidia already for GPT-2)](https://www.lesswrong.com/posts/qvWP3aBDBaqXvPNhS/gpt-2-s-positional-embedding-matrix-is-a-helix). This makes sense; it allows the model to move around in relative positions somewhat easily. The value at (~0, ~0) is at position 1023 - the last position in the context (max length 1024). It never needs to attend to a future token so perhaps it doesn't matter what its embedding is in the same way as other tokens? This also suggests that it's the key being rotated forward, rather than the query being rotated back? Not sure if that makes sense.
 
 Finally, looking at this plot, I wonder whether we could provide such a model with a more intelligent positional embedding rather than allowing it to be learned. And then we would also know how it works.
 
