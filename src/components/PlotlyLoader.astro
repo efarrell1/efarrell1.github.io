@@ -1,0 +1,15 @@
+---
+// src/components/PlotlyLoader.astro
+---
+
+<script is:inline>
+    if (!window.plotlyLoaded) {
+      window.plotlyLoaded = true;
+      const script = document.createElement('script');
+      script.src = 'https://cdn.plot.ly/plotly-latest.min.js';
+      script.onload = () => {
+        document.dispatchEvent(new Event('plotlyLoaded'));
+      };
+      document.head.appendChild(script);
+    }
+  </script>

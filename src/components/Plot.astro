@@ -1,0 +1,66 @@
+---
+// src/components/PlotlyChart.astro
+import PlotlyLoader from './PlotlyLoader.astro';
+
+interface Props {
+  dataPath: string;
+  height?: number;
+  width?: string;
+}
+
+const { dataPath, height = 400, width = '100%' } = Astro.props;
+---
+
+<div class="plotly-chart-container" data-path={dataPath} style="width: 100%; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+  <PlotlyLoader />
+</div>
+
+<div style="width: 100%; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+    <figcaption>
+      <slot />
+    </figcaption>
+</div>
+
+<style define:vars={{ height, width }}>
+  .plotly-chart-container {
+    width: var(--width);
+    height: var(--height)px;
+    margin: 0 auto;
+  }
+</style>
+
+<script>
+  function loadAndCreatePlot(container) {
+    const dataPath = container.dataset.path;
+    fetch(dataPath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        Plotly.newPlot(container, data, {
+          responsive: true,
+          autosize: true
+        });
+      })
+      .catch(error => {
+        console.error('Error loading or plotting data:', error);
+        container.innerHTML = 'Error loading plot data.';
+      });
+  }
+
+  function initPlots() {
+    const containers = document.querySelectorAll('.plotly-chart-container');
+    containers.forEach(loadAndCreatePlot);
+  }
+
+  // Check if Plotly is already loaded
+  if (typeof Plotly !== 'undefined') {
+    initPlots();
+  } else {
+    // If not, wait for the 'plotlyLoaded' event
+    document.addEventListener('plotlyLoaded', initPlots);
+  }
+</script>

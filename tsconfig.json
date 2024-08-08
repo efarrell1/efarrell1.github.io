@@ -1,0 +1,16 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@toy_exp/*": ["src/figures/toy_transformer_experiments/*"],
+      "@toy_exp2/*": ["/../src/figures/toy_transformer_experiments/*"],
+      "@/solid/*": ["src/components/solidjs/*"],
+      "@attn_sae/*": ["src/figures/attention_head_saes/*"]
+    },
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
+  }
+}
