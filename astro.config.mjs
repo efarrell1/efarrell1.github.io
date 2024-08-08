@@ -15,7 +15,7 @@ import robotsTxt from "astro-robots-txt";
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
-  site: 'www.eoinfarrell.org',
+  site: 'https://www.eoinfarrell.org',
   integrations: [mdx(), sitemap(), tailwind(), solidJs(), metaTags(), robotsTxt()],
   markdown: {
     remarkPlugins: [remarkMath],
