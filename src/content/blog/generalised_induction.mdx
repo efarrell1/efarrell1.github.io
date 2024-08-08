@@ -31,7 +31,7 @@ Figure 1: Attention Patterns in Layer 1 for the sequence  ... \[A]\[X]\[B] ... [
 
 Using the 2-layer attention-only transformer model from TransformerLens, Figure 1 below shows the attention patterns for Layer 1 given the above sequence  ... \[A]\[X]\[B] ... [C]\[X]\[D] ... \[A]\[X]. The attention patterns are averaged over 4000 batches. We can just about see from Figure 1 that the model attends more to [B] more than [C]. More quantitatively, the attention pattern at the position of the final [X] token looks like this:
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/triplet_attn_pattern_line2.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/triplet_attn_pattern_line2.json" height={500} width="95%">
 Figure 2: Attention Patterns for the induction head in Layer 1 for averaged over sequences of the form  ... \[A]\[X]\[B] ... [C]\[X]\[D] ... \[A]\[X] .
 </Plot>
 
@@ -102,7 +102,7 @@ To apply activation patching, I used the above sequence as the "clean" sequence 
 where the correct predicted token for the clean and corrupted prompts are [B] and [D] respectively. The performance metric I used here is the difference in logits for [B] and [D]. The values in Figure 5 below represent the logit difference between [B] and [D] on a scale where 0 corresponds to the logit difference for the corrupted prompt and 1 corresponds to the logit difference for the clean prompt. Attention heads that are important for the completion of the sequence will have values closer to 1, and those are less important will have values closer to 0.
 
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/attn_patch_heatmap2.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/attn_patch_heatmap2.json" height={500} width="95%">
 Figure 5: Results for activation patching tests by attention head for each sequence length.
 </Plot>
 
@@ -120,7 +120,7 @@ In this sequence, \[X$_1$] appears four times before the final token, twice foll
 
 The model predicts [B] to appear next with a much higher probability than [X$_2$] with a logit difference of 5.61. Figure 6 shows the attention pattern for the induction head at the final token position, qualitatively consistent with the higher logit for [B] than [X$_2$]. This isn't conclusive evidence of exactly how the look-back-two head is behaving, but appears to suggest that it's not very sensitive to the ordering of the tokens.
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/attn_pattern_induction_bug2.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/attn_pattern_induction_bug2.json" height={500} width="95%">
 Figure 6: Attention pattern in the induction head (L1H6) for the final token.
 </Plot>
 

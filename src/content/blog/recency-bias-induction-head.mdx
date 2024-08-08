@@ -34,7 +34,7 @@ R indicates a random token (every R is different), and each [A] token is the sam
 
 ### Dependence on position
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/position_of_second_a_token.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/position_of_second_a_token.json" height={500} width="95%">
 Figure 1: Probability of [B] and [C] tokens as a function of the position of the second [A] token, equivalent to each row in the table above.
 </Plot>
 
@@ -55,7 +55,7 @@ Figure 2 shows the Layer 1 attention patterns for the final row of the table whe
 We can extend the information in Figure 2 by plotting the attention patterns in the induction head for the final position in the sequence as a function of the position of the second [A] token -- Figure 3 below. 
 
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/position_of_second_a_token_attention.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/position_of_second_a_token_attention.json" height={500} width="95%">
 Figure 3: Attention Patterns in the induction head for the final position in the sequence (the third [A] token) as a function of the position of the second [A] token.
 </Plot>
 
@@ -66,7 +66,7 @@ We can see clearly that the third [A] attends to [B] for all positions of the 2n
 
 Figure 3 hints at an intrinsic positional dependence of the induction head attention patterns. One way to test this is to input random sequences of tokens and average the attention patterns produced in the induction head. This produces the following:
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/random_attention_pattern_ind_head_7.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/random_attention_pattern_ind_head_7.json" height={500} width="95%">
 Figure 4: Attention Patterns in the induction head (H6) for a sequence of 7 random tokens including a \<BOS> token a position 0.
 </Plot>
 
@@ -76,7 +76,7 @@ The induction head tends to pay more attention to recent tokens and less attenti
 Perhaps somewhat surprisingly, this recency bias seems to extend to much longer gaps in position. Figure 5 shows the same plot as Figure 4, but for 48 tokens instead of 7. Although it's a bit noisy, the general trend still exists.
 
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/random_attention_pattern_ind_head_48.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/random_attention_pattern_ind_head_48.json" height={500} width="95%">
 Figure 5: Attention Patterns in the induction head (H6) for a sequence of 48 random tokens including a \<BOS> token a position 0.
 </Plot>
 
@@ -87,7 +87,7 @@ Figure 5: Attention Patterns in the induction head (H6) for a sequence of 48 ran
 One might imagine that the positional dependence exhibited in Figure 5 is achieved using the positional embeddings or some information written by a head in layer 0 based on the positional embeddings. However, this is not the case. The positional embeddings can be removed from the model entirely and, with random sequences of tokens, the same trend of increasing attention score can still be obtained.
 
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/all_heads_ablated_except_l0h2.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/all_heads_ablated_except_l0h2.json" height={500} width="95%">
 Figure 6: Attention Patterns in the induction head (H6) for a sequence of 48 random tokens with only token embeddings included and all heads in layer 0 ablated except head 1.
 </Plot>
 

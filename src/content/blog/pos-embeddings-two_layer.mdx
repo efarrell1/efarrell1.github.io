@@ -23,7 +23,7 @@ Position is clearly important to how attention works, so I wanted to do a series
 
 ### Dot Products
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/pos_embeddings_1024.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/pos_embeddings_1024.json" height={500} width="95%">
 Figure 1: Dot products of the positional embeddings with all other positional embeddings.
 </Plot>
 
@@ -40,7 +40,7 @@ The dot product between a given position and the other nearby positions initiall
 
 ### PCA of positional embedding
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/pca_pos_embeddings.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/pca_pos_embeddings.json" height={500} width="95%">
 Figure 2: Principal Components 1 and 2 of the positional embeddings.
 </Plot>
 
@@ -57,11 +57,11 @@ Here’s the positional embeddings at positions 1, 2, 3, 4 dotted with all other
 
 
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/pos_embed_01234_dp.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/pos_embed_01234_dp.json" height={500} width="95%">
 </Plot>
 
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/pos_embed_100_dp.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/pos_embed_100_dp.json" height={500} width="95%">
 </Plot>
 
 
@@ -73,5 +73,5 @@ Here’s the positional embeddings at positions 1, 2, 3, 4 dotted with all other
 Below is the magnitude of the positional embeddings. Again we see that position 0 is special compared to positions 1, 2, 3 etc. the magnitudes initially decrease and then remain relatively constant in size. I'm not sure why the earlier positions are substantially larger in magnitude than the later positions. Where is the asymmetry? Is this possibly a result of the training procedure? Because earlier positions are trained repeatedly on each chunk of data? I can't see a reason why these values should intrinsically behave like this. 
 
 
-<Plot dataPath="/../src/figures/toy_transformer_experiments/pos_embed_magnitudes.json" height={500} width="95%" client:load>
+<Plot dataPath="/toy_transformer_experiments/pos_embed_magnitudes.json" height={500} width="95%">
 </Plot>
